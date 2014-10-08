@@ -1,7 +1,6 @@
 // DIYbio EasyPhoresis
 // by alec_djinn 2014
 // www.diybiogroningen.org
-
 show_body = false;
 show_gel = true;
 show_comb = false;
