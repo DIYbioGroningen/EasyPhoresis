@@ -1,12 +1,16 @@
 // DIYbio EasyPhoresis
 // by alec_djinn 2014
 // www.diybiogroningen.org
-// Version: beta 1
+
+show_body = false;
+show_gel = true;
+show_comb = false;
+use_nice_bottom = true;
 
 // dimensions
 width = 40;
 height = 20;
-depth = 80;
+depth = 110;
 thickness = 2.5;
 
 
@@ -17,9 +21,12 @@ module body(width,height,depth,thickness){
 			cube([width,depth,height], center=true);
 			cylinder(r=thickness, h=1);
 		}
-		translate([0,0,height]){
-			rotate([0,90,0]){
-				cylinder (h=3*height, r=height, center=true);
+      if (use_nice_bottom)
+      {
+			translate([0,0,height]){
+				rotate([0,90,0]){
+					cylinder (h=3*height, r=height, center=true);
+				}
 			}
 		}
 	}
@@ -82,16 +89,24 @@ module comb(width,height,depth,thickness){
 	}
 }
 
-// body: shape - void
-difference(){
-	body(width,height,depth,thickness);
-	translate([0,0,-thickness]){
-		body(width-thickness,height-thickness,depth-thickness);
+
+if (show_body)
+{
+	// body: shape - void
+	difference(){
+		body(width,height,depth,thickness);
+		translate([0,0,-thickness]){
+			body(width-thickness,height-thickness,depth-thickness);
+		}
 	}
 }
 
-// gel
-gel(width,height,depth,thickness);
+if (show_gel)
+{
+  gel(width,height,depth,thickness);
+}
 
-// comb
-comb(width,height,depth,thickness);
+if (show_comb)
+{
+  comb(width,height,depth,thickness);
+}
